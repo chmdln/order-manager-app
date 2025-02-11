@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Изменить заказ</title> 
+
+    <link rel="stylesheet" href="{% static 'styles/delete_order.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/general.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <script>
+        const DELETE_ORDER_URL = "{% url 'delete_order' %}";
+    </script>
+
+    <script src="{% static 'scripts/sidebar.js' %}" defer></script>
+    <script src="{% static 'scripts/delete_order.js' %}" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-items">
+            <button class="button-primary main-menu-button-sidebar js-main-menu-button-sidebar">На главную</button>
+        </div>
+        <div class="sidebar-header">Заказы</div>
+        <div class="sidebar-items">
+            <button class="button-primary js-view-all-orders-button">Просмотреть все</button>
+            <button class="button-primary js-create-order-button">Создать заказ</button>
+            <button class="button-primary js-search-order-button-sidebar">Поиск заказа</button>
+            <button class="button-primary js-edit-order-button">Изменить заказ</button>
+            <button class="button-primary js-cancel-order-button">Удалить заказ</button>
+        </div>
+        <div class="sidebar-header sidebar-header-finances">Финансы</div>
+        <div class="sidebar-items">
+            <button class="button-primary js-get-revenue-button-sidebar">Подсчёт выручки</button>
+        </div>
+    </div>
+
+    <div class="search-order-container">
+        <form action="{% url 'render_delete_order_item' %}" method="post">
+            {% csrf_token %}
+            <div class="search-order-id-form">
+                <div>
+                    <div>
+                        <label for="search-order">Поиск заказа: </label>
+                        <input type="text" id="search-order" name="order_id" placeholder="Введите ID заказа">
+                    </div>
+                    <div class="search-order-note" 
+                            style="display: none; color:red; font-size: 16px">
+                            *Введите ID заказа
+                    </div>
+                </div>
+                <button type="submit" class="button-primary js-search-order-button">Найти</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="order-container">
+        <div class="order-item">
+            <div class="order-item-left-section">
+                <div class="order-id">
+                    <span class="order-header">Заказ ID:</span> {{ order.id }}
+                </div>
+                <div class="table-number">
+                    <span class="order-header">Номер стола:</span> {{ order.table_number }}
+                </div>
+                <div class="order-dishes">
+                    <span class="order-header">Список блюд:</span> 
+                    {% for dish in order.dishes %}
+                    <div>{{ dish }}</div>
+                    {% endfor %}
+                </div>
+                <div class="order-amount">
+                    <span class="order-header">Общая сумма:</span> {{ order.total_price }} руб.
+                </div>
+                <div class="order-status">
+                    <span class="order-header">Статус:</span> 
+                    <div class="curr-order-status status-waiting">
+                        {{ order.status }}
+                    </div>
+                </div>
+            </div>
+            <div class="order-item-right-section">
+                <button class="delete-order-button-primary js-delete-order-button">Удалить</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Background overlay -->
+    <div id="modalOverlay" class="modal-overlay" style="display: none;"></div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p>Вы уверены, что хотите удалить заказ?</p>
+            <div id="order-info" data-order-id="{{ order.id }}"></div>
+            <button id="confirmDelete" class="delete-order-button-primary delete-order-button-modal">Да, удалить</button>
+            <button id="cancelDelete" class="button-primary delete-button-modal">Отмена</button>
+        </div>
+    </div>
+
+</body>
+</html>
+
