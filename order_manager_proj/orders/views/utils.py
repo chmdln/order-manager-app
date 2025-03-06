@@ -5,7 +5,7 @@ from orders.models import Item
 
 def format_date(date_obj):
     # Set Russian locale
-    locale.setlocale(locale.LC_TIME, "ru_RU")
+    # locale.setlocale(locale.LC_TIME, "ru_RU")
     if isinstance(date_obj, date) and not isinstance(date_obj, datetime):  
         date_obj = datetime.combine(date_obj, datetime.min.time())  # Convert `date` to `datetime`
 
