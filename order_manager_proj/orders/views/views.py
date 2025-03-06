@@ -15,6 +15,9 @@ from ..models import Item, Order
 from .utils import format_date, create_order_data
 
 
+def ping(request: HttpRequest) -> HttpResponse:
+    return HttpResponse(status=200)
+
 
 def main(request: HttpRequest) -> HttpResponse:
     """
