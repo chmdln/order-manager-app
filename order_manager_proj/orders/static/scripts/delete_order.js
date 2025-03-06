@@ -1,6 +1,6 @@
 const mainMenuButtonSidebar = document.querySelector(".js-main-menu-button-sidebar")
 mainMenuButtonSidebar.addEventListener('click', () => {
-    window.location.href = 'http://127.0.0.1:8000'
+    window.location.href = 'https://order-manager-app-nw07.onrender.com'
 })
 
 
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 modal.style.display = "none";
                 modalOverlay.style.display = "none"; 
-                window.location.href = "http://127.0.0.1:8000/delete_order"
+                window.location.href = "https://order-manager-app-nw07.onrender.com/delete_order"
             })
             .catch(error => console.error("Error:", error));
         });

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const mainMenuButtonSidebar = document.querySelector(".js-main-menu-button-sidebar")
 mainMenuButtonSidebar.addEventListener('click', () => {
-    window.location.href = 'http://127.0.0.1:8000'
+    window.location.href = 'https://order-manager-app-nw07.onrender.com'
 })
 
 
