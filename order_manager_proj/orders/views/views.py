@@ -16,7 +16,9 @@ from .utils import format_date, create_order_data
 
 
 def ping(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(status=200)
+    response = HttpResponse(status=200)
+    response["Content-Length"] = "0"
+    return response 
 
 
 def main(request: HttpRequest) -> HttpResponse:
